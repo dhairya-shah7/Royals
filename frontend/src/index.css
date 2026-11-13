@@ -520,6 +520,9 @@ body.scout-open .mobile-floating-nav {
   .app-header {
     gap: 10px;
   }
+  .header-page-title {
+    display: none !important;
+  }
   .search-capsule-container {
     max-width: 200px;
   }
@@ -527,7 +530,11 @@ body.scout-open .mobile-floating-nav {
 
 @media screen and (max-width: 1180px) {
   .header-btn-text {
-    display: none !important;
+    display: inline-block !important;
+    font-size: 0.74rem !important;
+  }
+  .header-actions {
+    gap: 6px;
   }
   .header-actions button {
     padding: 0 10px !important;
@@ -691,11 +698,12 @@ body.scout-open .mobile-floating-nav {
   }
 
   .header-btn-text {
-    display: none !important;
+    display: inline-block !important;
+    font-size: 0.7rem !important;
   }
 
   .header-actions button {
-    padding: 0 10px !important;
+    padding: 0 8px !important;
     height: 34px !important;
   }
 
