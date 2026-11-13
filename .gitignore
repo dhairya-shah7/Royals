@@ -9,6 +9,9 @@ frontend/node_modules/
 dist/
 frontend/dist/
 
+# Temporary scratch files
+scratch/
+
 # Python cache & virtual environments
 __pycache__/
 *.py[cod]

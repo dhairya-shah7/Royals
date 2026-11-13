@@ -754,6 +754,58 @@ export default function App() {
           
           {/* TOP APP HEADER BAR */}
           <header className="app-header">
+            {/* BRAND / SITE LOGO & TITLE */}
+            <div 
+              className="header-brand-title"
+              onClick={() => setActivePage('leaderboard')}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                cursor: 'pointer',
+                flexShrink: 0,
+                textDecoration: 'none',
+                userSelect: 'none'
+              }}
+              title="SupeRR · Rajasthan Royals Official Intelligence Platform"
+            >
+              <div style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                background: '#FFFFFF',
+                border: '1.5px solid rgba(230, 0, 126, 0.25)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '3px',
+                boxShadow: '0 2px 8px rgba(230,0,126,0.15)'
+              }}>
+                <img src={rrLogo} alt="RR Crest" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
+                <span style={{
+                  fontSize: '1.15rem',
+                  fontWeight: 900,
+                  letterSpacing: '-0.02em',
+                  color: 'var(--rr-blue)',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}>
+                  Supe<span style={{ color: 'var(--rr-pink)' }}>RR</span>
+                </span>
+                <span style={{
+                  fontSize: '0.58rem',
+                  fontWeight: 800,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: 'var(--text-muted)'
+                }}>
+                  Selector S2
+                </span>
+              </div>
+            </div>
+
             {/* SEARCH CAPSULE WITH INTEGRATED SEARCH BUTTON & LIVE RESULTS FLYOUT */}
             <div 
               ref={searchContainerRef}
