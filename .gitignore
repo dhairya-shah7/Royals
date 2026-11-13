@@ -1,0 +1,29 @@
+# Raw heavy datasets (>40MB)
+ball_by_ball.csv
+
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Production builds
+dist/
+frontend/dist/
+
+# Python cache & virtual environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Intermediate inspect/preview images
+inspect_page_*.png
+page_*_preview.png
+page_*_final.png
+royals_page_*.png
+
+# System & OS files
+.DS_Store
+Thumbs.db
+*.log
