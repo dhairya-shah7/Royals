@@ -1147,34 +1147,6 @@ export default function App() {
                   flexShrink: 0
                 }} />
               </button>
-
-              {/* Profile Emblem Avatar Badge with RR Logo */}
-              <div 
-                style={{
-                  width: '38px',
-                  height: '38px',
-                  borderRadius: '50%',
-                  background: 'linear-gradient(135deg, #FFF0F6 0%, #FFFFFF 100%)',
-                  border: '1.5px solid rgba(230, 0, 126, 0.25)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '4px',
-                  boxShadow: '0 2px 8px rgba(230,0,126,0.12)',
-                  cursor: 'pointer',
-                  flexShrink: 0,
-                  transition: 'all 0.2s ease'
-                }}
-                title="Rajasthan Royals · SupeRR War Room"
-              >
-                <img 
-                  src={rrLogo} 
-                  alt="RR Crest" 
-                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
-                />
-              </div>
-
-
             </div>
           </header>
 
