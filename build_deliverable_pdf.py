@@ -224,6 +224,11 @@ story.append(Paragraph("Identifying the Most Reliable Players Under Match Pressu
 story.append(Paragraph("A Mathematical Decision-Support Framework for Rajasthan Royals Ingesting 883 Matches & 200,999 Deliveries", ParagraphStyle('Sub2', fontName='Helvetica-Bold', fontSize=8.0, leading=10.0, textColor=colors.HexColor("#1E293B"))))
 story.append(Spacer(1, 2))
 story.append(Paragraph("<b>Author:</b> Dhairya | <b>Franchise:</b> Rajasthan Royals | <b>Corpus:</b> 883 Matches (IPL & T20I, 2022–2026) | <b>Evaluator:</b> RR Data Team", meta_style))
+story.append(Paragraph(
+    "<b>Live Web Platform:</b> <a href='https://super-rr.vercel.app' color='#E6007E'><u><b>https://super-rr.vercel.app</b></u></a> &nbsp;|&nbsp; "
+    "<b>Code & Replication Repo:</b> <a href='https://github.com/dhairya-shah7/Royals' color='#0E3696'><u><b>github.com/dhairya-shah7/Royals</b></u></a>",
+    ParagraphStyle('MetaLinks', fontName='Helvetica', fontSize=7.2, leading=9.5, textColor=colors.HexColor("#334155"))
+))
 story.append(Spacer(1, 2))
 story.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor("#0E3696"), spaceAfter=4))
 
@@ -611,8 +616,17 @@ story.append(Paragraph(
     "• <b>Opposition Quality Adjustment:</b> Facing Jasprit Bumrah in Over 19 carries higher intrinsic difficulty than a fifth bowler. Bradley-Terry opponent ratings will further refine precision.",
     body_style
 ))
+story.append(Spacer(1, 2))
 
-story.append(Spacer(1, 3))
+story.append(Paragraph("13. Live Platform, Codebase & Reproducibility Verification", h1_style))
+story.append(Paragraph(
+    "To satisfy the official competition transparency and reproducibility mandate, the entire analytical pipeline, mathematical scoring algorithms, and interactive scouting dashboard are deployed and openly accessible:<br/>"
+    "• <b>Live Interactive Platform:</b> <a href='https://super-rr.vercel.app' color='#E6007E'><u><b>https://super-rr.vercel.app</b></u></a> — Production dashboard featuring real-time re-ranking, dynamic parameter sliders (minimum ball cutoffs, phase weighting), Head-to-Head Matrix Comparator (15 Batters vs 15 Bowlers), and the automated Royals Scout Engine.<br/>"
+    "• <b>GitHub Repository & Data Pipeline:</b> <a href='https://github.com/dhairya-shah7/Royals' color='#0E3696'><u><b>github.com/dhairya-shah7/Royals</b></u></a> — Full Python data processing scripts, 200,999-ball MTGI pipeline, statistical bootstrap test suites, and reproduction guide.",
+    body_style
+))
+
+story.append(Spacer(1, 2))
 story.append(HRFlowable(width="100%", thickness=1, color=colors.HexColor("#CBD5E1"), spaceAfter=3))
 story.append(Paragraph(
     "<b>CONFIDENTIAL COMPETITION SUBMISSION:</b> Developed for Rajasthan Royals SupeRR Selector Season 2. Powered by 200,999-delivery MTGI Database. <i>HALLA BOL!</i>",
