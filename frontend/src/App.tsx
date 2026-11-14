@@ -715,7 +715,7 @@ export default function App() {
                   className={`dock-btn ${isActive ? 'active' : ''}`}
                   aria-label={item.label}
                 >
-                  <Icon size={19} strokeWidth={isActive ? 2.3 : 1.9} />
+                  <Icon size={22} strokeWidth={isActive ? 2.3 : 1.9} />
                   <span className="dock-tooltip">{item.label}</span>
                 </button>
               );
@@ -783,19 +783,19 @@ export default function App() {
               }}>
                 <img src={rrLogo} alt="RR Crest" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               </div>
-              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-                <span style={{
-                  fontSize: '1.15rem',
+              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.05 }}>
+                <span className="brand-title-text" style={{
+                  fontSize: '1.25rem',
                   fontWeight: 900,
                   letterSpacing: '-0.02em',
                   color: 'var(--rr-blue)',
                   display: 'flex',
                   alignItems: 'center'
                 }}>
-                  Supe<span style={{ color: 'var(--rr-pink)' }}>RR</span>
+                  Supe<span className="brand-title-rr" style={{ color: 'var(--rr-pink)' }}>RR</span>
                 </span>
-                <span style={{
-                  fontSize: '0.58rem',
+                <span className="brand-subtitle-text" style={{
+                  fontSize: '0.64rem',
                   fontWeight: 800,
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
@@ -1155,6 +1155,436 @@ export default function App() {
           {/* ========================================================================= */}
           {activePage === 'leaderboard' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1, overflowY: 'auto', paddingRight: '4px' }}>
+              {/* ========================================================================= */}
+              {/* TOP 10 RANKINGS (10 BATTERS & 10 BOWLERS UNDER PRESSURE)                  */}
+              {/* ========================================================================= */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
+                      <div style={{
+                        width: '32px',
+                        height: '32px',
+                        borderRadius: '10px',
+                        background: 'linear-gradient(135deg, var(--rr-pink) 0%, var(--rr-blue) 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#FFFFFF',
+                        boxShadow: '0 2px 8px rgba(230, 0, 126, 0.25)'
+                      }}>
+                        <Trophy size={17} />
+                      </div>
+                      <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                        Top 10 Performers
+                      </h3>
+                    </div>
+                    <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
+                      Rank 1 to 10 choices computed directly from all 6 CSV datasets.
+                    </p>
+                  </div>
+
+                  {/* Phase & Role Filter Capsules */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', width: '100%', justifyContent: 'space-between' }}>
+                    {/* Phase Selector Capsules */}
+                    <div style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '4px',
+                      background: 'rgba(15, 23, 42, 0.05)',
+                      padding: '4px',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(15, 23, 42, 0.06)',
+                      overflowX: 'auto',
+                      flexWrap: 'nowrap',
+                      maxWidth: '100%',
+                      scrollbarWidth: 'none',
+                      whiteSpace: 'nowrap',
+                      WebkitOverflowScrolling: 'touch'
+                    }}>
+                      {[
+                        { id: 'all', label: 'All Overs' },
+                        { id: 'powerplay', label: '⚡ Powerplay' },
+                        { id: 'middle', label: '💧 Middle' },
+                        { id: 'death', label: '🎯 Death' }
+                      ].map(ph => (
+                        <button
+                          key={ph.id}
+                          onClick={() => setPhaseFilter(ph.id as any)}
+                          style={{
+                            padding: '6px 12px',
+                            borderRadius: '999px',
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            border: 'none',
+                            whiteSpace: 'nowrap',
+                            flexShrink: 0,
+                            background: phaseFilter === ph.id ? (ph.id === 'death' ? '#DC2626' : ph.id === 'powerplay' ? 'var(--rr-pink)' : ph.id === 'middle' ? 'var(--rr-blue)' : '#FFFFFF') : 'transparent',
+                            color: phaseFilter === ph.id ? (ph.id === 'all' ? 'var(--text-primary)' : '#FFFFFF') : 'var(--text-secondary)',
+                            boxShadow: phaseFilter === ph.id ? '0 2px 6px rgba(0,0,0,0.08)' : 'none',
+                            transition: 'all 0.15s ease'
+                          }}
+                        >
+                          {ph.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Role Switcher */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '3px',
+                      background: 'rgba(15, 23, 42, 0.05)',
+                      padding: '4px',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(15, 23, 42, 0.06)',
+                      whiteSpace: 'nowrap',
+                      flexShrink: 0
+                    }}>
+                      {[
+                        { id: 'bat', label: '🏏 Batters' },
+                        { id: 'bowl', label: '🎯 Bowlers' }
+                      ].map(tab => (
+                        <button
+                          key={tab.id}
+                          onClick={() => setTableTab(tab.id as any)}
+                          style={{
+                            padding: '6px 13px',
+                            borderRadius: '999px',
+                            fontSize: '0.72rem',
+                            fontWeight: 700,
+                            cursor: 'pointer',
+                            border: 'none',
+                            whiteSpace: 'nowrap',
+                            background: tableTab === tab.id ? '#FFFFFF' : 'transparent',
+                            color: tableTab === tab.id ? 'var(--text-primary)' : 'var(--text-secondary)',
+                            boxShadow: tableTab === tab.id ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
+                            transition: 'all 0.15s ease'
+                          }}
+                        >
+                          {tab.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Grid for Tables: 1-column single tab view */}
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'minmax(0, 1fr)',
+                  width: '100%',
+                  minWidth: 0,
+                  gap: '18px'
+                }}>
+
+                  {/* 1. TOP 10 BATTERS TABLE */}
+                  {tableTab === 'bat' && (
+                    <div className="glass-card" style={{ padding: '16px 14px', borderRadius: '20px', minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', paddingBottom: '12px', borderBottom: '1px solid rgba(15, 23, 42, 0.06)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '1.1rem' }}>🏏</span>
+                          <div>
+                            <h4 style={{ margin: 0, fontSize: '0.98rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                              {phaseFilter === 'death' ? 'Top Death-Overs Finishers (#5–#7)' : 'Top 10 Batters Under Pressure'}
+                            </h4>
+                            <span style={{ fontSize: '0.68rem', color: phaseFilter === 'death' ? '#DC2626' : 'var(--text-muted)', fontWeight: phaseFilter === 'death' ? 700 : 500 }}>
+                              {phaseFilter === 'death' ? `🎯 Phase-Calibrated: Min ${activeCalib.minDeathBalls} Death Deliveries (Sorted by Death Clutch)` : `Min ${activeCalib.minBatBalls} Pressure Balls · Sorted by Clutch Rating`}
+                            </span>
+                          </div>
+                        </div>
+                        <span style={{
+                          fontSize: '0.65rem',
+                          fontWeight: 800,
+                          padding: '3px 8px',
+                          borderRadius: '999px',
+                          background: 'var(--rr-pink-light)',
+                          color: 'var(--rr-pink)',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          RANKS 1 TO 10
+                        </span>
+                      </div>
+
+                      <div className="table-responsive-wrapper">
+                        <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.78rem' }}>
+                          <thead>
+                            <tr style={{ borderBottom: '1px solid rgba(15, 23, 42, 0.08)', color: 'var(--text-muted)', fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                              <th style={{ padding: '8px 6px', width: '38px', minWidth: '38px', whiteSpace: 'nowrap' }}>Rank</th>
+                              <th style={{ padding: '8px 10px', minWidth: '150px', whiteSpace: 'nowrap' }}>Batter</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Balls</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Pressure SR</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Pressure Boost</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Bnd %</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Dot %</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Consist %</th>
+                              <th style={{ padding: '8px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>Clutch Score</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {displayedBatters.slice(0, 10).map((b: any) => {
+                              const isTop1 = b.rank === 1;
+                              const isTop2 = b.rank === 2;
+                              const isTop3 = b.rank === 3;
+                              return (
+                                <tr
+                                  key={b.name}
+                                  style={{
+                                    borderBottom: '1px solid rgba(15, 23, 42, 0.04)',
+                                    transition: 'background 0.15s ease'
+                                  }}
+                                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(225, 29, 72, 0.02)')}
+                                  onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                                >
+                                  {/* Rank Badge */}
+                                  <td style={{ padding: '10px 6px', whiteSpace: 'nowrap' }}>
+                                    <span style={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      width: '24px',
+                                      height: '24px',
+                                      borderRadius: '50%',
+                                      fontSize: '0.72rem',
+                                      fontWeight: 900,
+                                      color: (isTop1 || isTop2 || isTop3) ? '#FFFFFF' : 'var(--text-secondary)',
+                                      background: isTop1
+                                        ? 'linear-gradient(135deg, #F59E0B, #D97706)'
+                                        : isTop2
+                                        ? 'linear-gradient(135deg, #94A3B8, #64748B)'
+                                        : isTop3
+                                        ? 'linear-gradient(135deg, #B45309, #92400E)'
+                                        : 'rgba(15, 23, 42, 0.05)',
+                                      boxShadow: isTop1 ? '0 2px 6px rgba(245, 158, 11, 0.3)' : 'none'
+                                    }}>
+                                      {b.rank}
+                                    </span>
+                                  </td>
+
+                                  {/* Player Name & Team */}
+                                  <td style={{ padding: '10px 10px', whiteSpace: 'nowrap' }}>
+                                    <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                      <span style={{ whiteSpace: 'nowrap' }}>{b.name}</span>
+                                      <button
+                                        onClick={() => togglePlayerInShortlist(b.name)}
+                                        style={{
+                                          border: 'none',
+                                          background: 'transparent',
+                                          cursor: 'pointer',
+                                          padding: '2px',
+                                          display: 'inline-flex',
+                                          alignItems: 'center',
+                                          color: coachShortlist.includes(b.name) ? 'var(--rr-pink)' : 'rgba(15,23,42,0.25)'
+                                        }}
+                                        title={coachShortlist.includes(b.name) ? 'Remove from Coach Shortlist' : 'Add to Coach Shortlist'}
+                                      >
+                                        <Bookmark size={12} fill={coachShortlist.includes(b.name) ? 'currentColor' : 'none'} />
+                                      </button>
+                                      {isTop1 && (
+                                        <span style={{ fontSize: '0.6rem', padding: '1px 5px', borderRadius: '4px', background: 'var(--rr-pink-light)', color: 'var(--rr-pink)', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                                          #1 LOCK
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{b.team}</div>
+                                  </td>
+
+                                  {/* Balls Faced */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
+                                    {b.balls}
+                                  </td>
+
+                                  {/* Pressure SR */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: 'var(--rr-pink)', whiteSpace: 'nowrap' }}>
+                                    {b.strikeRate.toFixed(1)}
+                                  </td>
+
+                                  {/* SR Delta */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: '#10B981', whiteSpace: 'nowrap' }}>
+                                    +{b.srDelta.toFixed(1)}
+                                  </td>
+
+                                  {/* Boundary % */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: '#8B5CF6', whiteSpace: 'nowrap' }}>
+                                    {b.boundaryPct !== undefined ? `${b.boundaryPct.toFixed(1)}%` : '-'}
+                                  </td>
+
+                                  {/* Dot % */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
+                                    {b.dotPct !== undefined ? `${b.dotPct.toFixed(1)}%` : '-'}
+                                  </td>
+
+                                  {/* Consistency % */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: 'var(--rr-blue)', whiteSpace: 'nowrap' }}>
+                                    {b.consistencyPct !== undefined ? `${b.consistencyPct.toFixed(1)}%` : '-'}
+                                  </td>
+
+                                  {/* Clutch Score */}
+                                  <td style={{ padding: '10px 10px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.88rem', whiteSpace: 'nowrap' }}>
+                                    {b.clutchScore.toFixed(1)}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* 2. TOP 10 BOWLERS TABLE */}
+                  {tableTab === 'bowl' && (
+                    <div className="glass-card" style={{ padding: '16px 14px', borderRadius: '20px', minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', paddingBottom: '12px', borderBottom: '1px solid rgba(15, 23, 42, 0.06)' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                          <span style={{ fontSize: '1.1rem' }}>🎯</span>
+                          <div>
+                            <h4 style={{ margin: 0, fontSize: '0.98rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+                              Top 10 Bowlers Under Pressure
+                            </h4>
+                            <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
+                              Min {activeCalib.minBowlBalls} Pressure Balls · Sorted by Clutch Suppression Score
+                            </span>
+                          </div>
+                        </div>
+                        <span style={{
+                          fontSize: '0.65rem',
+                          fontWeight: 800,
+                          padding: '3px 8px',
+                          borderRadius: '999px',
+                          background: 'var(--rr-blue-light)',
+                          color: 'var(--rr-blue)',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          RANKS 1 TO 10
+                        </span>
+                      </div>
+
+                      <div className="table-responsive-wrapper">
+                        <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.78rem' }}>
+                          <thead>
+                            <tr style={{ borderBottom: '1px solid rgba(15, 23, 42, 0.08)', color: 'var(--text-muted)', fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                              <th style={{ padding: '8px 6px', width: '38px', minWidth: '38px', whiteSpace: 'nowrap' }}>Rank</th>
+                              <th style={{ padding: '8px 10px', minWidth: '150px', whiteSpace: 'nowrap' }}>Bowler</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Balls</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Wickets</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Pressure Econ</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Dot %</th>
+                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Consist %</th>
+                              <th style={{ padding: '8px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>Clutch Score</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {displayedBowlers.slice(0, 10).map((bw) => {
+                              const isTop1 = bw.rank === 1;
+                              const isTop2 = bw.rank === 2;
+                              const isTop3 = bw.rank === 3;
+                              return (
+                                <tr
+                                  key={bw.name}
+                                  style={{
+                                    borderBottom: '1px solid rgba(15, 23, 42, 0.04)',
+                                    transition: 'background 0.15s ease'
+                                  }}
+                                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(0, 102, 204, 0.02)')}
+                                  onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                                >
+                                  {/* Rank Badge */}
+                                  <td style={{ padding: '10px 6px', whiteSpace: 'nowrap' }}>
+                                    <span style={{
+                                      display: 'inline-flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      width: '24px',
+                                      height: '24px',
+                                      borderRadius: '50%',
+                                      fontSize: '0.72rem',
+                                      fontWeight: 900,
+                                      color: (isTop1 || isTop2 || isTop3) ? '#FFFFFF' : 'var(--text-secondary)',
+                                      background: isTop1
+                                        ? 'linear-gradient(135deg, #F59E0B, #D97706)'
+                                        : isTop2
+                                        ? 'linear-gradient(135deg, #94A3B8, #64748B)'
+                                        : isTop3
+                                        ? 'linear-gradient(135deg, #B45309, #92400E)'
+                                        : 'rgba(15, 23, 42, 0.05)',
+                                      boxShadow: isTop1 ? '0 2px 6px rgba(245, 158, 11, 0.3)' : 'none'
+                                    }}>
+                                      {bw.rank}
+                                    </span>
+                                  </td>
+
+                                  {/* Bowler Name & Team */}
+                                  <td style={{ padding: '10px 10px', whiteSpace: 'nowrap' }}>
+                                    <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
+                                      <span style={{ whiteSpace: 'nowrap' }}>{bw.name}</span>
+                                      <button
+                                        onClick={() => togglePlayerInShortlist(bw.name)}
+                                        style={{
+                                          border: 'none',
+                                          background: 'transparent',
+                                          cursor: 'pointer',
+                                          padding: '2px',
+                                          display: 'inline-flex',
+                                          alignItems: 'center',
+                                          color: coachShortlist.includes(bw.name) ? 'var(--rr-blue)' : 'rgba(15,23,42,0.25)'
+                                        }}
+                                        title={coachShortlist.includes(bw.name) ? 'Remove from Coach Shortlist' : 'Add to Coach Shortlist'}
+                                      >
+                                        <Bookmark size={12} fill={coachShortlist.includes(bw.name) ? 'currentColor' : 'none'} />
+                                      </button>
+                                      {isTop1 && (
+                                        <span style={{ fontSize: '0.6rem', padding: '1px 5px', borderRadius: '4px', background: 'var(--rr-blue-light)', color: 'var(--rr-blue)', fontWeight: 800, whiteSpace: 'nowrap' }}>
+                                          #1 LEADER
+                                        </span>
+                                      )}
+                                    </div>
+                                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{bw.team}</div>
+                                  </td>
+
+                                  {/* Balls Bowled */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
+                                    {bw.balls}
+                                  </td>
+
+                                  {/* Wickets */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: 'var(--rr-pink)', whiteSpace: 'nowrap' }}>
+                                    {bw.wickets}
+                                  </td>
+
+                                  {/* Pressure Economy & Delta */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: bw.economy <= 7.5 ? '#10B981' : 'var(--text-primary)', whiteSpace: 'nowrap' }}>
+                                    {bw.economy.toFixed(2)}
+                                  </td>
+
+                                  {/* Dot % */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: 'var(--rr-blue)', whiteSpace: 'nowrap' }}>
+                                    {bw.dotPct !== undefined ? `${bw.dotPct.toFixed(1)}%` : '-'}
+                                  </td>
+
+                                  {/* Consistency % */}
+                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: '#10B981', whiteSpace: 'nowrap' }}>
+                                    {bw.consistencyPct !== undefined ? `${bw.consistencyPct.toFixed(1)}%` : '-'}
+                                  </td>
+
+                                  {/* Clutch Score */}
+                                  <td style={{ padding: '10px 10px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.88rem', whiteSpace: 'nowrap' }}>
+                                    {bw.clutchScore.toFixed(1)}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
+
+                </div>
+              </div>
+
               
               {/* UPPER SECTION: Split Left Highlights + Main Trending Hero Feature */}
               <div className="hero-split-grid" style={{ alignItems: 'stretch' }}>
@@ -1649,435 +2079,6 @@ export default function App() {
                 </div>
               </div>
 
-              {/* ========================================================================= */}
-              {/* TOP 10 RANKINGS (10 BATTERS & 10 BOWLERS UNDER PRESSURE)                  */}
-              {/* ========================================================================= */}
-              <div style={{ marginTop: '28px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-                      <div style={{
-                        width: '32px',
-                        height: '32px',
-                        borderRadius: '10px',
-                        background: 'linear-gradient(135deg, var(--rr-pink) 0%, var(--rr-blue) 100%)',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: '#FFFFFF',
-                        boxShadow: '0 2px 8px rgba(230, 0, 126, 0.25)'
-                      }}>
-                        <Trophy size={17} />
-                      </div>
-                      <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 900, color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                        Top 10 Performers
-                      </h3>
-                    </div>
-                    <p style={{ margin: 0, fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-                      Rank 1 to 10 choices computed directly from all 6 CSV datasets.
-                    </p>
-                  </div>
-
-                  {/* Phase & Role Filter Capsules */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap', width: '100%', justifyContent: 'space-between' }}>
-                    {/* Phase Selector Capsules */}
-                    <div style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px',
-                      background: 'rgba(15, 23, 42, 0.05)',
-                      padding: '4px',
-                      borderRadius: '999px',
-                      border: '1px solid rgba(15, 23, 42, 0.06)',
-                      overflowX: 'auto',
-                      flexWrap: 'nowrap',
-                      maxWidth: '100%',
-                      scrollbarWidth: 'none',
-                      whiteSpace: 'nowrap',
-                      WebkitOverflowScrolling: 'touch'
-                    }}>
-                      {[
-                        { id: 'all', label: 'All Overs' },
-                        { id: 'powerplay', label: '⚡ Powerplay' },
-                        { id: 'middle', label: '💧 Middle' },
-                        { id: 'death', label: '🎯 Death' }
-                      ].map(ph => (
-                        <button
-                          key={ph.id}
-                          onClick={() => setPhaseFilter(ph.id as any)}
-                          style={{
-                            padding: '6px 12px',
-                            borderRadius: '999px',
-                            fontSize: '0.72rem',
-                            fontWeight: 700,
-                            cursor: 'pointer',
-                            border: 'none',
-                            whiteSpace: 'nowrap',
-                            flexShrink: 0,
-                            background: phaseFilter === ph.id ? (ph.id === 'death' ? '#DC2626' : ph.id === 'powerplay' ? 'var(--rr-pink)' : ph.id === 'middle' ? 'var(--rr-blue)' : '#FFFFFF') : 'transparent',
-                            color: phaseFilter === ph.id ? (ph.id === 'all' ? 'var(--text-primary)' : '#FFFFFF') : 'var(--text-secondary)',
-                            boxShadow: phaseFilter === ph.id ? '0 2px 6px rgba(0,0,0,0.08)' : 'none',
-                            transition: 'all 0.15s ease'
-                          }}
-                        >
-                          {ph.label}
-                        </button>
-                      ))}
-                    </div>
-
-                    {/* Role Switcher */}
-                    <div style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '3px',
-                      background: 'rgba(15, 23, 42, 0.05)',
-                      padding: '4px',
-                      borderRadius: '999px',
-                      border: '1px solid rgba(15, 23, 42, 0.06)',
-                      whiteSpace: 'nowrap',
-                      flexShrink: 0
-                    }}>
-                      {[
-                        { id: 'bat', label: '🏏 Batters' },
-                        { id: 'bowl', label: '🎯 Bowlers' }
-                      ].map(tab => (
-                        <button
-                          key={tab.id}
-                          onClick={() => setTableTab(tab.id as any)}
-                          style={{
-                            padding: '6px 13px',
-                            borderRadius: '999px',
-                            fontSize: '0.72rem',
-                            fontWeight: 700,
-                            cursor: 'pointer',
-                            border: 'none',
-                            whiteSpace: 'nowrap',
-                            background: tableTab === tab.id ? '#FFFFFF' : 'transparent',
-                            color: tableTab === tab.id ? 'var(--text-primary)' : 'var(--text-secondary)',
-                            boxShadow: tableTab === tab.id ? '0 2px 6px rgba(0,0,0,0.06)' : 'none',
-                            transition: 'all 0.15s ease'
-                          }}
-                        >
-                          {tab.label}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Grid for Tables: 1-column single tab view */}
-                <div style={{
-                  display: 'grid',
-                  gridTemplateColumns: 'minmax(0, 1fr)',
-                  width: '100%',
-                  minWidth: 0,
-                  gap: '18px'
-                }}>
-
-                  {/* 1. TOP 10 BATTERS TABLE */}
-                  {tableTab === 'bat' && (
-                    <div className="glass-card" style={{ padding: '16px 14px', borderRadius: '20px', minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', paddingBottom: '12px', borderBottom: '1px solid rgba(15, 23, 42, 0.06)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontSize: '1.1rem' }}>🏏</span>
-                          <div>
-                            <h4 style={{ margin: 0, fontSize: '0.98rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                              {phaseFilter === 'death' ? 'Top Death-Overs Finishers (#5–#7)' : 'Top 10 Batters Under Pressure'}
-                            </h4>
-                            <span style={{ fontSize: '0.68rem', color: phaseFilter === 'death' ? '#DC2626' : 'var(--text-muted)', fontWeight: phaseFilter === 'death' ? 700 : 500 }}>
-                              {phaseFilter === 'death' ? `🎯 Phase-Calibrated: Min ${activeCalib.minDeathBalls} Death Deliveries (Sorted by Death Clutch)` : `Min ${activeCalib.minBatBalls} Pressure Balls · Sorted by Clutch Rating`}
-                            </span>
-                          </div>
-                        </div>
-                        <span style={{
-                          fontSize: '0.65rem',
-                          fontWeight: 800,
-                          padding: '3px 8px',
-                          borderRadius: '999px',
-                          background: 'var(--rr-pink-light)',
-                          color: 'var(--rr-pink)',
-                          whiteSpace: 'nowrap'
-                        }}>
-                          RANKS 1 TO 10
-                        </span>
-                      </div>
-
-                      <div className="table-responsive-wrapper">
-                        <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.78rem' }}>
-                          <thead>
-                            <tr style={{ borderBottom: '1px solid rgba(15, 23, 42, 0.08)', color: 'var(--text-muted)', fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                              <th style={{ padding: '8px 6px', width: '38px', minWidth: '38px', whiteSpace: 'nowrap' }}>Rank</th>
-                              <th style={{ padding: '8px 10px', minWidth: '150px', whiteSpace: 'nowrap' }}>Batter</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Balls</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Pressure SR</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Pressure Boost</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Bnd %</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Dot %</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Consist %</th>
-                              <th style={{ padding: '8px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>Clutch Score</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {displayedBatters.slice(0, 10).map((b: any) => {
-                              const isTop1 = b.rank === 1;
-                              const isTop2 = b.rank === 2;
-                              const isTop3 = b.rank === 3;
-                              return (
-                                <tr
-                                  key={b.name}
-                                  style={{
-                                    borderBottom: '1px solid rgba(15, 23, 42, 0.04)',
-                                    transition: 'background 0.15s ease'
-                                  }}
-                                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(225, 29, 72, 0.02)')}
-                                  onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-                                >
-                                  {/* Rank Badge */}
-                                  <td style={{ padding: '10px 6px', whiteSpace: 'nowrap' }}>
-                                    <span style={{
-                                      display: 'inline-flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '24px',
-                                      height: '24px',
-                                      borderRadius: '50%',
-                                      fontSize: '0.72rem',
-                                      fontWeight: 900,
-                                      color: (isTop1 || isTop2 || isTop3) ? '#FFFFFF' : 'var(--text-secondary)',
-                                      background: isTop1
-                                        ? 'linear-gradient(135deg, #F59E0B, #D97706)'
-                                        : isTop2
-                                        ? 'linear-gradient(135deg, #94A3B8, #64748B)'
-                                        : isTop3
-                                        ? 'linear-gradient(135deg, #B45309, #92400E)'
-                                        : 'rgba(15, 23, 42, 0.05)',
-                                      boxShadow: isTop1 ? '0 2px 6px rgba(245, 158, 11, 0.3)' : 'none'
-                                    }}>
-                                      {b.rank}
-                                    </span>
-                                  </td>
-
-                                  {/* Player Name & Team */}
-                                  <td style={{ padding: '10px 10px', whiteSpace: 'nowrap' }}>
-                                    <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
-                                      <span style={{ whiteSpace: 'nowrap' }}>{b.name}</span>
-                                      <button
-                                        onClick={() => togglePlayerInShortlist(b.name)}
-                                        style={{
-                                          border: 'none',
-                                          background: 'transparent',
-                                          cursor: 'pointer',
-                                          padding: '2px',
-                                          display: 'inline-flex',
-                                          alignItems: 'center',
-                                          color: coachShortlist.includes(b.name) ? 'var(--rr-pink)' : 'rgba(15,23,42,0.25)'
-                                        }}
-                                        title={coachShortlist.includes(b.name) ? 'Remove from Coach Shortlist' : 'Add to Coach Shortlist'}
-                                      >
-                                        <Bookmark size={12} fill={coachShortlist.includes(b.name) ? 'currentColor' : 'none'} />
-                                      </button>
-                                      {isTop1 && (
-                                        <span style={{ fontSize: '0.6rem', padding: '1px 5px', borderRadius: '4px', background: 'var(--rr-pink-light)', color: 'var(--rr-pink)', fontWeight: 800, whiteSpace: 'nowrap' }}>
-                                          #1 LOCK
-                                        </span>
-                                      )}
-                                    </div>
-                                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{b.team}</div>
-                                  </td>
-
-                                  {/* Balls Faced */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
-                                    {b.balls}
-                                  </td>
-
-                                  {/* Pressure SR */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: 'var(--rr-pink)', whiteSpace: 'nowrap' }}>
-                                    {b.strikeRate.toFixed(1)}
-                                  </td>
-
-                                  {/* SR Delta */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: '#10B981', whiteSpace: 'nowrap' }}>
-                                    +{b.srDelta.toFixed(1)}
-                                  </td>
-
-                                  {/* Boundary % */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: '#8B5CF6', whiteSpace: 'nowrap' }}>
-                                    {b.boundaryPct !== undefined ? `${b.boundaryPct.toFixed(1)}%` : '-'}
-                                  </td>
-
-                                  {/* Dot % */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 600, color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>
-                                    {b.dotPct !== undefined ? `${b.dotPct.toFixed(1)}%` : '-'}
-                                  </td>
-
-                                  {/* Consistency % */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: 'var(--rr-blue)', whiteSpace: 'nowrap' }}>
-                                    {b.consistencyPct !== undefined ? `${b.consistencyPct.toFixed(1)}%` : '-'}
-                                  </td>
-
-                                  {/* Clutch Score */}
-                                  <td style={{ padding: '10px 10px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.88rem', whiteSpace: 'nowrap' }}>
-                                    {b.clutchScore.toFixed(1)}
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* 2. TOP 10 BOWLERS TABLE */}
-                  {tableTab === 'bowl' && (
-                    <div className="glass-card" style={{ padding: '16px 14px', borderRadius: '20px', minWidth: 0, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px', paddingBottom: '12px', borderBottom: '1px solid rgba(15, 23, 42, 0.06)' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                          <span style={{ fontSize: '1.1rem' }}>🎯</span>
-                          <div>
-                            <h4 style={{ margin: 0, fontSize: '0.98rem', fontWeight: 800, color: 'var(--text-primary)' }}>
-                              Top 10 Bowlers Under Pressure
-                            </h4>
-                            <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>
-                              Min {activeCalib.minBowlBalls} Pressure Balls · Sorted by Clutch Suppression Score
-                            </span>
-                          </div>
-                        </div>
-                        <span style={{
-                          fontSize: '0.65rem',
-                          fontWeight: 800,
-                          padding: '3px 8px',
-                          borderRadius: '999px',
-                          background: 'var(--rr-blue-light)',
-                          color: 'var(--rr-blue)',
-                          whiteSpace: 'nowrap'
-                        }}>
-                          RANKS 1 TO 10
-                        </span>
-                      </div>
-
-                      <div className="table-responsive-wrapper">
-                        <table style={{ width: '100%', minWidth: '600px', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.78rem' }}>
-                          <thead>
-                            <tr style={{ borderBottom: '1px solid rgba(15, 23, 42, 0.08)', color: 'var(--text-muted)', fontSize: '0.68rem', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                              <th style={{ padding: '8px 6px', width: '38px', minWidth: '38px', whiteSpace: 'nowrap' }}>Rank</th>
-                              <th style={{ padding: '8px 10px', minWidth: '150px', whiteSpace: 'nowrap' }}>Bowler</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Balls</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Wickets</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Pressure Econ</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Dot %</th>
-                              <th style={{ padding: '8px 8px', textAlign: 'right', whiteSpace: 'nowrap' }}>Consist %</th>
-                              <th style={{ padding: '8px 10px', textAlign: 'right', whiteSpace: 'nowrap' }}>Clutch Score</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {displayedBowlers.slice(0, 10).map((bw) => {
-                              const isTop1 = bw.rank === 1;
-                              const isTop2 = bw.rank === 2;
-                              const isTop3 = bw.rank === 3;
-                              return (
-                                <tr
-                                  key={bw.name}
-                                  style={{
-                                    borderBottom: '1px solid rgba(15, 23, 42, 0.04)',
-                                    transition: 'background 0.15s ease'
-                                  }}
-                                  onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(0, 102, 204, 0.02)')}
-                                  onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
-                                >
-                                  {/* Rank Badge */}
-                                  <td style={{ padding: '10px 6px', whiteSpace: 'nowrap' }}>
-                                    <span style={{
-                                      display: 'inline-flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      width: '24px',
-                                      height: '24px',
-                                      borderRadius: '50%',
-                                      fontSize: '0.72rem',
-                                      fontWeight: 900,
-                                      color: (isTop1 || isTop2 || isTop3) ? '#FFFFFF' : 'var(--text-secondary)',
-                                      background: isTop1
-                                        ? 'linear-gradient(135deg, #F59E0B, #D97706)'
-                                        : isTop2
-                                        ? 'linear-gradient(135deg, #94A3B8, #64748B)'
-                                        : isTop3
-                                        ? 'linear-gradient(135deg, #B45309, #92400E)'
-                                        : 'rgba(15, 23, 42, 0.05)',
-                                      boxShadow: isTop1 ? '0 2px 6px rgba(245, 158, 11, 0.3)' : 'none'
-                                    }}>
-                                      {bw.rank}
-                                    </span>
-                                  </td>
-
-                                  {/* Bowler Name & Team */}
-                                  <td style={{ padding: '10px 10px', whiteSpace: 'nowrap' }}>
-                                    <div style={{ fontWeight: 800, color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }}>
-                                      <span style={{ whiteSpace: 'nowrap' }}>{bw.name}</span>
-                                      <button
-                                        onClick={() => togglePlayerInShortlist(bw.name)}
-                                        style={{
-                                          border: 'none',
-                                          background: 'transparent',
-                                          cursor: 'pointer',
-                                          padding: '2px',
-                                          display: 'inline-flex',
-                                          alignItems: 'center',
-                                          color: coachShortlist.includes(bw.name) ? 'var(--rr-blue)' : 'rgba(15,23,42,0.25)'
-                                        }}
-                                        title={coachShortlist.includes(bw.name) ? 'Remove from Coach Shortlist' : 'Add to Coach Shortlist'}
-                                      >
-                                        <Bookmark size={12} fill={coachShortlist.includes(bw.name) ? 'currentColor' : 'none'} />
-                                      </button>
-                                      {isTop1 && (
-                                        <span style={{ fontSize: '0.6rem', padding: '1px 5px', borderRadius: '4px', background: 'var(--rr-blue-light)', color: 'var(--rr-blue)', fontWeight: 800, whiteSpace: 'nowrap' }}>
-                                          #1 LEADER
-                                        </span>
-                                      )}
-                                    </div>
-                                    <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{bw.team}</div>
-                                  </td>
-
-                                  {/* Balls Bowled */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-secondary)', whiteSpace: 'nowrap' }}>
-                                    {bw.balls}
-                                  </td>
-
-                                  {/* Wickets */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: 'var(--rr-pink)', whiteSpace: 'nowrap' }}>
-                                    {bw.wickets}
-                                  </td>
-
-                                  {/* Pressure Economy & Delta */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: bw.economy <= 7.5 ? '#10B981' : 'var(--text-primary)', whiteSpace: 'nowrap' }}>
-                                    {bw.economy.toFixed(2)}
-                                  </td>
-
-                                  {/* Dot % */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 700, color: 'var(--rr-blue)', whiteSpace: 'nowrap' }}>
-                                    {bw.dotPct !== undefined ? `${bw.dotPct.toFixed(1)}%` : '-'}
-                                  </td>
-
-                                  {/* Consistency % */}
-                                  <td style={{ padding: '10px 8px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 800, color: '#10B981', whiteSpace: 'nowrap' }}>
-                                    {bw.consistencyPct !== undefined ? `${bw.consistencyPct.toFixed(1)}%` : '-'}
-                                  </td>
-
-                                  {/* Clutch Score */}
-                                  <td style={{ padding: '10px 10px', textAlign: 'right', fontFamily: 'JetBrains Mono, monospace', fontWeight: 900, color: 'var(--text-primary)', fontSize: '0.88rem', whiteSpace: 'nowrap' }}>
-                                    {bw.clutchScore.toFixed(1)}
-                                  </td>
-                                </tr>
-                              );
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  )}
-
-                </div>
-              </div>
 
             </div>
           )}
@@ -4185,7 +4186,7 @@ export default function App() {
                   aria-label={item.label}
                   title={item.label}
                 >
-                  <Icon size={20} strokeWidth={isActive ? 2.4 : 1.9} />
+                  <Icon className="mobile-nav-icon" size={26} strokeWidth={isActive ? 2.5 : 2.0} />
                 </button>
               );
             })}

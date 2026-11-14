@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media screen and (min-width: 1025px) {
+  html {
+    font-size: 16.5px; /* Subtle crisp boost for desktop / PC */
+  }
+}
+
 :root {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   color-scheme: light;
@@ -88,8 +99,8 @@ body {
 
 /* Compact Rounded Capsule Dock / Sidebar (Identical to reference image) */
 .pill-dock {
-  width: 54px;
-  background: rgba(255, 255, 255, 0.82);
+  width: 62px;
+  background: rgba(255, 255, 255, 0.88);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.95);
@@ -97,7 +108,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px 6px;
+  padding: 10px 7px;
   gap: 12px;
   box-shadow: var(--shadow-dock);
   flex-shrink: 0;
@@ -106,8 +117,8 @@ body {
 }
 
 .dock-btn {
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   border: none;
   background: transparent;
@@ -122,24 +133,26 @@ body {
 
 .dock-btn:hover {
   color: var(--text-primary);
-  background: rgba(15, 23, 42, 0.04);
+  background: rgba(15, 23, 42, 0.05);
+  transform: translateY(-1px);
 }
 
 .dock-btn.active {
   background: #FFFFFF;
   color: var(--rr-pink);
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 14px rgba(230, 0, 126, 0.22), 0 1px 3px rgba(0, 0, 0, 0.05);
+  transform: scale(1.05);
 }
 
 /* Floating Tooltip - High z-index & clean contrast */
 .dock-tooltip {
   position: absolute;
-  left: 54px;
+  left: 64px;
   background: #0F172A;
   color: #FFFFFF;
-  font-size: 0.72rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  padding: 6px 12px;
+  padding: 6px 14px;
   border-radius: 8px;
   white-space: nowrap;
   pointer-events: none;
@@ -450,14 +463,14 @@ body {
 /* ========================================================================== */
 .mobile-floating-nav {
   position: fixed;
-  bottom: 16px;
+  bottom: max(20px, env(safe-area-inset-bottom, 20px));
   left: 50%;
   transform: translateX(-50%);
-  z-index: 60;
+  z-index: 999;
   display: none;
   pointer-events: none;
   width: auto;
-  max-width: calc(100vw - 24px);
+  max-width: calc(100vw - 20px);
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
@@ -474,39 +487,41 @@ body.scout-open .mobile-floating-nav {
   pointer-events: auto;
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.22), 0 3px 12px rgba(0, 0, 0, 0.08);
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 0 16px 45px rgba(15, 23, 42, 0.24), 0 4px 16px rgba(230, 0, 126, 0.16);
   border-radius: 999px;
-  padding: 6px 10px;
+  padding: 8px 14px;
 }
 
 .mobile-nav-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: 52px;
+  height: 52px;
   border-radius: 999px;
   border: none;
   background: transparent;
   color: var(--text-muted);
   cursor: pointer;
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
 }
 
 .mobile-nav-btn:hover {
   color: var(--text-primary);
-  background: rgba(15, 23, 42, 0.04);
+  background: rgba(15, 23, 42, 0.05);
 }
 
 .mobile-nav-btn.active {
   background: #FFFFFF;
   color: var(--rr-pink);
-  box-shadow: 0 3px 12px rgba(230, 0, 126, 0.22), 0 1px 3px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(230, 0, 126, 0.28), 0 1px 3px rgba(0, 0, 0, 0.08);
+  transform: scale(1.08);
 }
 
 .mobile-nav-label {
@@ -548,8 +563,12 @@ body.scout-open .mobile-floating-nav {
 /* TABLET & IPAD BREAKPOINTS (<= 1024px)                                      */
 /* ========================================================================== */
 @media screen and (max-width: 1024px) {
+  html {
+    font-size: 18px; /* Increased text size for iPad */
+  }
+
   .app-container {
-    padding: 12px 10px 100px 10px !important;
+    padding: 12px 10px 108px 10px !important;
     align-items: flex-start !important;
     justify-content: flex-start !important;
     width: 100% !important;
@@ -560,7 +579,7 @@ body.scout-open .mobile-floating-nav {
 
   .app-layout {
     flex-direction: column;
-    padding: 16px 14px 24px 14px !important;
+    padding: 16px 14px 28px 14px !important;
     gap: 16px;
     min-height: auto;
     border-radius: 20px;
@@ -584,7 +603,7 @@ body.scout-open .mobile-floating-nav {
 
   .app-header {
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     width: 100% !important;
     max-width: 100% !important;
   }
@@ -598,6 +617,25 @@ body.scout-open .mobile-floating-nav {
 
   .header-brand-title {
     order: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .brand-title-text {
+    font-size: 1.35rem !important;
+    display: inline-flex !important;
+    color: var(--rr-blue) !important;
+  }
+
+  .brand-title-rr {
+    display: inline !important;
+    color: var(--rr-pink) !important;
+  }
+
+  .brand-subtitle-text {
+    display: block !important;
+    font-size: 0.7rem !important;
   }
 
   .header-title-group {
@@ -607,6 +645,23 @@ body.scout-open .mobile-floating-nav {
   .header-actions {
     order: 2;
     margin-left: auto;
+    gap: 8px;
+  }
+
+  .header-btn-text {
+    display: inline-block !important;
+    font-size: 0.8rem !important;
+  }
+
+  .header-actions button {
+    height: 38px !important;
+    padding: 0 12px !important;
+  }
+
+  .header-report-btn {
+    height: 36px !important;
+    font-size: 0.82rem !important;
+    padding: 0 14px !important;
   }
 
   /* Hide desktop left sidebar on tablet/mobile */
@@ -614,9 +669,24 @@ body.scout-open .mobile-floating-nav {
     display: none !important;
   }
 
-  /* Show floating bottom navigation bar */
+  /* Show floating bottom navigation bar with larger capsule and icons */
   .mobile-floating-nav {
     display: flex !important;
+  }
+
+  .mobile-nav-pill {
+    padding: 10px 18px !important;
+    gap: 14px !important;
+  }
+
+  .mobile-nav-btn {
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .mobile-nav-btn .mobile-nav-icon {
+    width: 28px !important;
+    height: 28px !important;
   }
 
   .hero-split-grid {
@@ -630,11 +700,15 @@ body.scout-open .mobile-floating-nav {
   }
 
   .hero-card {
-    padding: 26px 24px !important;
+    padding: 28px 24px !important;
   }
 
   .hero-card h2 {
-    font-size: 1.7rem !important;
+    font-size: 1.85rem !important;
+  }
+
+  .table-responsive-wrapper table {
+    font-size: 0.88rem !important;
   }
 }
 
@@ -642,15 +716,19 @@ body.scout-open .mobile-floating-nav {
 /* PHONES & IPHONES BREAKPOINTS (<= 768px)                                    */
 /* ========================================================================== */
 @media screen and (max-width: 768px) {
+  html {
+    font-size: 17.5px; /* Increased text size for mobile devices */
+  }
+
   .app-container {
-    padding: 8px 6px 96px 6px !important;
+    padding: 8px 6px 120px 6px !important;
     overflow-x: hidden !important;
     width: 100vw !important;
     max-width: 100vw !important;
   }
 
   .app-layout {
-    padding: 12px 10px 20px 10px;
+    padding: 12px 10px 22px 10px;
     border-radius: 16px;
     width: 100% !important;
     max-width: 100% !important;
@@ -672,8 +750,33 @@ body.scout-open .mobile-floating-nav {
     flex: 1 1 100%;
   }
 
+  /* SupeRR Header Brand Title */
   .header-brand-title {
     order: 0;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+  }
+
+  .brand-title-text {
+    font-size: 1.25rem !important;
+    font-weight: 900 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    color: var(--rr-blue) !important;
+  }
+
+  .brand-title-rr {
+    display: inline !important;
+    color: var(--rr-pink) !important;
+    font-weight: 900 !important;
+  }
+
+  .brand-subtitle-text {
+    display: block !important;
+    font-size: 0.65rem !important;
+    font-weight: 800 !important;
+    color: var(--text-muted) !important;
   }
 
   .header-title-group {
@@ -686,9 +789,9 @@ body.scout-open .mobile-floating-nav {
   }
 
   .header-report-btn {
-    height: 32px;
+    height: 34px;
     padding: 0 10px;
-    font-size: 0.72rem;
+    font-size: 0.78rem;
   }
 
   .header-actions {
@@ -699,12 +802,12 @@ body.scout-open .mobile-floating-nav {
 
   .header-btn-text {
     display: inline-block !important;
-    font-size: 0.7rem !important;
+    font-size: 0.76rem !important;
   }
 
   .header-actions button {
-    padding: 0 8px !important;
-    height: 34px !important;
+    padding: 0 10px !important;
+    height: 36px !important;
   }
 
   .two-col-grid {
@@ -728,21 +831,31 @@ body.scout-open .mobile-floating-nav {
   }
 
   .hero-card {
-    padding: 20px 18px !important;
+    padding: 22px 18px !important;
   }
 
   .hero-card h2 {
-    font-size: 1.45rem !important;
+    font-size: 1.55rem !important;
   }
 
+  /* Bigger Navigation capsule on mobile */
   .mobile-nav-pill {
-    gap: 6px;
-    padding: 5px 8px;
+    gap: 10px !important;
+    padding: 8px 12px !important;
   }
 
   .mobile-nav-btn {
-    width: 40px;
-    height: 40px;
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  .mobile-nav-btn .mobile-nav-icon {
+    width: 25px !important;
+    height: 25px !important;
+  }
+
+  .table-responsive-wrapper table {
+    font-size: 0.86rem !important;
   }
 }
 
@@ -750,8 +863,12 @@ body.scout-open .mobile-floating-nav {
 /* IPHONE SE & SMALLEST SCREENS (<= 480px)                                    */
 /* ========================================================================== */
 @media screen and (max-width: 480px) {
+  html {
+    font-size: 17px;
+  }
+
   .app-container {
-    padding: 6px 4px 92px 4px !important;
+    padding: 6px 4px 115px 4px !important;
     align-items: flex-start !important;
     justify-content: flex-start !important;
     overflow-x: hidden !important;
@@ -759,7 +876,7 @@ body.scout-open .mobile-floating-nav {
   }
 
   .app-layout {
-    padding: 10px 8px 16px 8px !important;
+    padding: 10px 8px 18px 8px !important;
     width: 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
@@ -767,12 +884,32 @@ body.scout-open .mobile-floating-nav {
     box-sizing: border-box !important;
   }
 
-  .header-brand-title span:last-child {
-    display: none !important;
+  /* CRITICAL: Keep SupeRR always fully shown with pink RR on smallest screens */
+  .header-brand-title {
+    display: flex !important;
+    align-items: center !important;
+    gap: 7px !important;
   }
 
-  .header-report-btn-text {
-    display: none !important;
+  .brand-title-text {
+    font-size: 1.2rem !important;
+    font-weight: 900 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    color: var(--rr-blue) !important;
+  }
+
+  .brand-title-rr {
+    display: inline !important;
+    color: var(--rr-pink) !important;
+    font-weight: 900 !important;
+  }
+
+  .brand-subtitle-text {
+    display: block !important;
+    font-size: 0.62rem !important;
+    font-weight: 800 !important;
+    color: var(--text-muted) !important;
   }
 
   .header-report-btn {
@@ -780,12 +917,21 @@ body.scout-open .mobile-floating-nav {
   }
 
   .mobile-nav-pill {
-    gap: 5px;
-    padding: 4px 6px;
+    gap: 8px !important;
+    padding: 6px 10px !important;
   }
 
   .mobile-nav-btn {
-    width: 36px;
-    height: 36px;
+    width: 46px !important;
+    height: 46px !important;
+  }
+
+  .mobile-nav-btn .mobile-nav-icon {
+    width: 23px !important;
+    height: 23px !important;
+  }
+
+  .table-responsive-wrapper table {
+    font-size: 0.82rem !important;
   }
 }
